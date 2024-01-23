@@ -50,13 +50,38 @@ $f3->route('GET|POST /order1', function ($f3) {
         $f3->set('SESSION.meal', $meal);
 
         //redirect to order2 route
-        $f3->reroute('summary');
+        $f3->reroute('order2');
 
     }
 
     // display a view page
     $view = new Template();
     echo $view->render('views/order-form-1.html');
+});
+
+// Define a order route
+$f3->route('GET|POST /order2', function ($f3) {
+//    echo "order Form part 2";
+
+//    //If the form has been posted
+//    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//
+//        //Validate the data
+//        $food = $_POST['food'];
+//        $meal = $_POST['meal'];
+//
+//        //put the data in the session array
+//        $f3->set('SESSION.food', $food);
+//        $f3->set('SESSION.meal', $meal);
+//
+//        //redirect to order2 route
+//        $f3->reroute('summary');
+//
+//    }
+//
+    // display a view page
+    $view = new Template();
+    echo $view->render('views/order-form-2.html');
 });
 
 // Define a summary route
