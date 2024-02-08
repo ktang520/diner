@@ -12,6 +12,7 @@ error_reporting(E_ALL);
 
 // Require the autoload file
 require_once ('vendor/autoload.php');
+require_once ('model/data-layer.php');
 
 // Instantiate Fat-Free Framework (F3)
 $f3 = Base::instance();
@@ -53,8 +54,9 @@ $f3->route('GET|POST /order1', function ($f3) {
         $f3->reroute('order2');
     }
 
-    // add data to the F3 "hive"
-    $f3->set('meals', array('breakfast', 'lunch', 'dinner'));
+    // get data from the model and add to the F3 "hive"
+    $f3->set('meals', getMeals());
+
 
     // display a view page
     $view = new Template();
@@ -65,22 +67,25 @@ $f3->route('GET|POST /order1', function ($f3) {
 $f3->route('GET|POST /order2', function ($f3) {
 //    echo "order Form part 2";
 
-//    //If the form has been posted
-//    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//
-//        //Validate the data
-//        $food = $_POST['food'];
-//        $meal = $_POST['meal'];
-//
-//        //put the data in the session array
-//        $f3->set('SESSION.food', $food);
-//        $f3->set('SESSION.meal', $meal);
-//
-//        //redirect to order2 route
-//        $f3->reroute('summary');
-//
-//    }
-//
+    //If the form has been posted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        //Validate the data
+        $food = $_POST['food'];
+        $meal = $_POST['meal'];
+
+        //put the data in the session array
+        $f3->set('SESSION.food', $food);
+        $f3->set('SESSION.meal', $meal);
+
+        //redirect to order2 route
+        $f3->reroute('summary');
+
+    }
+
+    // add data to the F3 "hive"
+    $f3->set('condiments', getCondiments());
+
     // display a view page
     $view = new Template();
     echo $view->render('views/order-form-2.html');
