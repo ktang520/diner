@@ -51,8 +51,10 @@ $f3->route('GET|POST /order1', function ($f3) {
 
         //redirect to order2 route
         $f3->reroute('order2');
-
     }
+
+    // add data to the F3 "hive"
+    $f3->set('meals', array('breakfast', 'lunch', 'dinner'));
 
     // display a view page
     $view = new Template();
